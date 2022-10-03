@@ -7,15 +7,18 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.gig.noteapp.views.NoteFragment
+import com.gig.noteapp.models.ui.AppBarState
+import com.gig.noteapp.views.fragments.NoteFragment
 
 @ExperimentalMaterial3Api
 @Composable
-fun NoteNavigation(modifier: Modifier = Modifier, navController: NavHostController? = null){
+fun NoteNavigation(modifier: Modifier = Modifier, navController: NavHostController? = null, onComposing: (AppBarState) -> Unit = {}) {
     val controller = navController ?: rememberNavController()
     NavHost(navController = controller, startDestination = NoteViews.NoteFragment.name) {
         composable(NoteViews.NoteFragment.name) {
-            NoteFragment(modifier = modifier, navController = navController)
+            NoteFragment(modifier = modifier, navController = navController) {
+                onComposing(it)
+            }
         }
     }
 }
