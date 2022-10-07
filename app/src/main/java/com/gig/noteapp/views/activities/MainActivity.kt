@@ -13,15 +13,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.gig.noteapp.components.NoteTopAppBar
 import com.gig.noteapp.models.ui.AppBarState
 import com.gig.noteapp.navigation.NoteNavigation
 import com.gig.noteapp.ui.theme.NoteAppTheme
-import com.gig.noteapp.widgets.NoteTopAppBar
 
+@ExperimentalComposeUiApi
 @ExperimentalMaterial3Api
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,6 +69,7 @@ fun App(content: @Composable (modifier: Modifier, navController: NavHostControll
     }
 }
 
+@ExperimentalComposeUiApi
 @ExperimentalMaterial3Api
 @Preview(showBackground = true)
 @Composable
