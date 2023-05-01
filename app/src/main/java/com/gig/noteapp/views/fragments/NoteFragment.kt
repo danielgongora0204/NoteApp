@@ -31,6 +31,7 @@ import com.gig.noteapp.components.NoteTextInput
 import com.gig.noteapp.data.NoteRepository
 import com.gig.noteapp.models.database.Note
 import com.gig.noteapp.models.ui.AppBarState
+import com.gig.noteapp.models.ui.appBarState
 import com.gig.noteapp.navigation.NoteViews
 
 @ExperimentalComposeUiApi
@@ -43,7 +44,7 @@ fun NoteFragment(modifier: Modifier = Modifier, navController: NavController? = 
     var noteBody by rememberSaveable { mutableStateOf(String()) }
 
     onComposing(
-        AppBarState(
+        appBarState(
             title = stringResource(NoteViews.NoteFragment.title),
             actions = {
                 IconButton(onClick = { /*TODO*/ }) {

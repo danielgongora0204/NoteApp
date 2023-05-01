@@ -7,7 +7,10 @@ class NoteRepository {
         return listOf(
             Note(title = "Hello", noteBody = "This is my first note"),
             Note(title = "Hello", noteBody = "This is my second note"),
-            Note(title = "Hello", noteBody = "This is my third note")
+            Note(title = "Hello", noteBody = "This is my third note"),
+            Note(title = "Hello", noteBody = "This is my fourth note"),
+            Note(title = "Hello", noteBody = "This is my fifth note"),
+            Note(title = "Hello", noteBody = "This is my sixth note"),
         )
     }
 }

@@ -20,6 +20,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.gig.noteapp.components.NoteTopAppBar
 import com.gig.noteapp.models.ui.AppBarState
+import com.gig.noteapp.models.ui.appBarState
 import com.gig.noteapp.navigation.NoteNavigation
 import com.gig.noteapp.ui.theme.NoteAppTheme
 
@@ -52,7 +53,7 @@ fun App(content: @Composable (modifier: Modifier, navController: NavHostControll
     )*/
     // AppBarState
     var appBarState by remember {
-        mutableStateOf(AppBarState())
+        mutableStateOf(appBarState())
     }
     NoteAppTheme {
         Scaffold(
