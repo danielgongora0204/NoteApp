@@ -29,14 +29,14 @@ fun NoteRow(
     onNoteRowClick: (Note) -> Unit = {}
 ) {
     Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .wrapContentHeight(),
+        modifier = modifier,
         elevation = CardDefaults.elevatedCardElevation(8.dp),
-        onClick = { note?.let { onNoteRowClick.invoke(it) } }
+        onClick = {
+            note?.let { onNoteRowClick.invoke(it) }
+        }
     ) {
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .padding(10.dp)
                 .fillMaxWidth()
                 .wrapContentHeight(),

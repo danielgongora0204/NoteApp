@@ -19,7 +19,7 @@ fun NoteTopAppBar(modifier: Modifier = Modifier, title: String = "", navigationI
         navigationIcon = {
             navigationIcon()
         },
-        colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Transparent),
+        colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent),
         actions = {
             actions()
         }

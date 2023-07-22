@@ -29,8 +29,9 @@ fun NoteTextInput(
         modifier = modifier,
         value = text,
         onValueChange = onValueChange,
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = Color.Transparent
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color.Transparent,
+            unfocusedContainerColor = Color.Transparent
         ),
         maxLines = maxLine,
         label = {
