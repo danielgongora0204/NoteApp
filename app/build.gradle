@@ -56,6 +56,7 @@ dependencies {
     implementation "androidx.compose.material3:material3:$material3"
     implementation "androidx.compose.material:material-icons-extended:$material3_icons_ext_version"
     implementation "androidx.navigation:navigation-compose:$nav_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$view_model_compose_version"
 
     testImplementation "junit:junit:$junit_test_implementation"
     androidTestImplementation "androidx.test.ext:junit:$junit"
