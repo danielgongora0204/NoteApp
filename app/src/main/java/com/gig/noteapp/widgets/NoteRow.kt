@@ -15,10 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.gig.noteapp.helper.contants.GeneralConstants
 import com.gig.noteapp.models.database.Note
-import com.gig.noteapp.utilities.constants.GeneralConstants
 import com.gig.noteapp.utilities.extensions.default
-import java.time.format.DateTimeFormatter
 
 @ExperimentalMaterial3Api
 @Preview
@@ -51,7 +50,7 @@ fun NoteRow(
                 style = MaterialTheme.typography.bodySmall
             )
             Text(
-                text = note?.date?.format(DateTimeFormatter.ofPattern(GeneralConstants.DATE_LONG_FORMAT)).default(String()),
+                text = note?.entryDate?.toString().default(""),//format(DateTimeFormatter.ofPattern(GeneralConstants.DATE_LONG_FORMAT)).default(String()),
                 style = MaterialTheme.typography.bodySmall
             )
         }

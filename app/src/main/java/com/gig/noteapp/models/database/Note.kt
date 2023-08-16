@@ -1,17 +1,20 @@
 package com.gig.noteapp.models.database
 
-import java.time.LocalDateTime
 import java.util.UUID
-import androidx.compose.runtime.saveable.Saver
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import java.time.Instant
+import java.util.Date
 
-data class Note constructor(
+@Entity(tableName = "notes_tbl")
+data class Note(
+    @PrimaryKey
     val id: UUID = UUID.randomUUID(),
+    @ColumnInfo(name = "note_title")
     val title: String,
+    @ColumnInfo(name = "note_body")
     val noteBody: String,
-    val date: LocalDateTime? = LocalDateTime.now()
-)
-
-val noteListSaver = Saver<MutableList<Note>, MutableList<UUID>>(
-    save = { it.map { note -> note.id }.toMutableList() },
-    restore = { it.map { id -> Note(id, "", "") }.toMutableList() }
+    @ColumnInfo(name = "note_entry_date")
+    val entryDate: Date = Date.from(Instant.now())
 )

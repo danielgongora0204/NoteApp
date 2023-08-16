@@ -34,7 +34,9 @@ import com.gig.noteapp.models.ui.AppBarState
 import com.gig.noteapp.models.ui.appBarState
 import com.gig.noteapp.navigation.NoteViews
 import com.gig.noteapp.widgets.NoteRow
+import java.time.Instant
 import java.time.LocalDateTime
+import java.util.Date
 
 @ExperimentalComposeUiApi
 @ExperimentalMaterial3Api
@@ -96,7 +98,7 @@ fun NoteFragment(
                 Note(
                     title = title,
                     noteBody = noteBody,
-                    date = LocalDateTime.now()
+                    entryDate = Date.from(Instant.now())
                 )
             )
             title = String()

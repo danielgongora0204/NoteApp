@@ -2,8 +2,10 @@ package com.gig.noteapp.navigation
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -20,20 +22,30 @@ fun NoteNavigation(modifier: Modifier = Modifier, navController: NavHostControll
     val controller = navController ?: rememberNavController()
     NavHost(navController = controller, startDestination = NoteViews.NoteFragment.name) {
         composable(NoteViews.NoteFragment.name) {
-            val noteViewModel = viewModel<NoteViewModel>()
-            NoteFragment(
-                modifier = modifier,
-                navController = navController,
-                notes = noteViewModel.notes,
-                onAddNote = {
-                    noteViewModel.addNote(it)
-                },
-                onRemoveNote = {
-                    noteViewModel.removeNote(it)
-                }
-            ) {
+            ToNoteFragment(modifier = modifier, navController = navController) {
                 onComposing(it)
             }
         }
+    }
+}
+
+@ExperimentalComposeUiApi
+@ExperimentalMaterial3Api
+@Composable
+fun ToNoteFragment(modifier: Modifier = Modifier, navController: NavHostController? = null, onComposing: (AppBarState) -> Unit = {}) {
+    val noteViewModel: NoteViewModel = hiltViewModel()
+    val noteList =  noteViewModel.notes.collectAsState().value
+    NoteFragment(
+        modifier = modifier,
+        navController = navController,
+        notes = noteList,
+        onAddNote = {
+            noteViewModel.addNote(it)
+        },
+        onRemoveNote = {
+            noteViewModel.removeNote(it)
+        }
+    ) {
+        onComposing(it)
     }
 }

@@ -23,9 +23,11 @@ import com.gig.noteapp.models.ui.AppBarState
 import com.gig.noteapp.models.ui.appBarState
 import com.gig.noteapp.navigation.NoteNavigation
 import com.gig.noteapp.ui.theme.NoteAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalComposeUiApi
 @ExperimentalMaterial3Api
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
