@@ -1,7 +1,8 @@
 package com.gig.noteapp.data
 
 import androidx.room.TypeConverter
-import java.util.Date
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.UUID
 
 class Converters {
@@ -17,12 +18,18 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromTimestamp(value: Long?): Date? {
-        return value?.let { Date(it) }
+    fun fromLocalDateTime(dateTime: LocalDateTime?): String? {
+        return dateTime?.format(dateTimeFormatter)
     }
 
     @TypeConverter
-    fun dateToTimestamp(date: Date?): Long? {
-        return date?.time?.toLong()
+    fun toLocalDateTime(dateTimeString: String?): LocalDateTime? {
+        return dateTimeString?.let {
+            LocalDateTime.parse(it, dateTimeFormatter)
+        }
+    }
+
+    companion object {
+        private val dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
     }
 }

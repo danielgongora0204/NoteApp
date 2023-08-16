@@ -8,7 +8,7 @@ import com.gig.noteapp.models.database.Note
 
 @Database(
     entities = [Note::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

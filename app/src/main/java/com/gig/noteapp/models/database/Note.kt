@@ -4,8 +4,8 @@ import java.util.UUID
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.time.Instant
-import java.util.Date
+import java.time.LocalDateTime
+
 
 @Entity(tableName = "notes_tbl")
 data class Note(
@@ -16,5 +16,5 @@ data class Note(
     @ColumnInfo(name = "note_body")
     val noteBody: String,
     @ColumnInfo(name = "note_entry_date")
-    val entryDate: Date = Date.from(Instant.now())
+    val entryDate: LocalDateTime = LocalDateTime.now()
 )
