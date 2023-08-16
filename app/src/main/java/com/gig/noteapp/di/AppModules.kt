@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.gig.noteapp.dao.NoteDao
 import com.gig.noteapp.data.MainDatabase
-import com.gig.noteapp.helper.contants.DatabaseConstants.DATABASE_NAME
+import com.gig.noteapp.helper.constants.DatabaseConstants.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
