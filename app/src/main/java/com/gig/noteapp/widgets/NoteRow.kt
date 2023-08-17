@@ -37,17 +37,17 @@ fun NoteRow(
     ) {
         Column(
             modifier = Modifier
-                .padding(10.dp)
+                .padding(16.dp)
                 .fillMaxWidth()
                 .wrapContentHeight(),
         ) {
             Text(
-                text = note?.title.default("Hello There"),
+                text = note?.title.default(""),
                 style = MaterialTheme.typography.titleMedium
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = note?.noteBody.default("Hello There"),
+                text = note?.noteBody.default(""),
                 style = MaterialTheme.typography.bodySmall
             )
             Text(

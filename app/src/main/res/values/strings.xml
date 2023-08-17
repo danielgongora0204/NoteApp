@@ -4,4 +4,10 @@
     <string name="note_body_input_label">Add a note</string>
     <string name="note_fragment_title">Notes</string>
     <string name="note_save_button">Save</string>
+
+    <string name="note_save_confirm_title">Add a Note?</string>
+    <string name="note_save_confirm_message">Are you sure you want to add a new note?</string>
+    <string name="confirm_button">Confirm</string>
+    <string name="ok_button">OK</string>
+    <string name="cancel_button">Cancel</string>
 </resources>

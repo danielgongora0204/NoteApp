@@ -33,6 +33,7 @@ import com.gig.noteapp.models.database.Note
 import com.gig.noteapp.models.ui.AppBarState
 import com.gig.noteapp.models.ui.appBarState
 import com.gig.noteapp.navigation.NoteViews
+import com.gig.noteapp.widgets.NoteConfirmationBottomSheet
 import com.gig.noteapp.widgets.NoteRow
 import java.time.LocalDateTime
 
@@ -50,6 +51,7 @@ fun NoteFragment(
     val context = LocalContext.current
     var title by rememberSaveable { mutableStateOf(String()) }
     var noteBody by rememberSaveable { mutableStateOf(String()) }
+    var showSheet by rememberSaveable { mutableStateOf(false) }
     onComposing(
         appBarState(
             title = stringResource(NoteViews.NoteFragment.title),
@@ -63,35 +65,15 @@ fun NoteFragment(
             }
         )
     )
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-    ) {
-        NoteTextInput(modifier = Modifier.fillMaxWidth(), text = title, label = stringResource(id = R.string.note_title_input_label)) {
-            if (it.all { x ->
-                x.isLetter() || x.isWhitespace()
-            }
-            ) {
-                title = it
-            }
-        }
-        NoteTextInput(modifier = Modifier.fillMaxWidth(), text = noteBody, label = stringResource(id = R.string.note_body_input_label)) {
-            if (it.all { x ->
-                x.isLetter() || x.isWhitespace()
-            }
-            ) {
-                noteBody = it
-            }
-        }
-        Spacer(modifier = Modifier.height(20.dp))
-        NoteButton(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 10.dp, vertical = 0.dp),
-            text = stringResource(id = R.string.note_save_button)
+    if (showSheet) { 
+        NoteConfirmationBottomSheet(
+            modifier = Modifier,
+            title = stringResource(id = R.string.note_save_confirm_title),
+            message = stringResource(id = R.string.note_save_confirm_message),
+            cancelText = stringResource(id = R.string.cancel_button),
+            confirmText = stringResource(id = R.string.ok_button),
+            onCancel = { showSheet = false  }
         ) {
-            if (!validNote(title, noteBody)) return@NoteButton
             onAddNote(
                 Note(
                     title = title,
@@ -101,17 +83,47 @@ fun NoteFragment(
             )
             title = String()
             noteBody = String()
-            Toast.makeText(context, "Note Added", Toast.LENGTH_SHORT)
-                .show()
+            showSheet = false
+            Toast.makeText(context, "Note Added", Toast.LENGTH_SHORT).show()
+        } 
+    }
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+    ) {
+        NoteTextInput(
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 0.dp),
+            text = title,
+            label = stringResource(id = R.string.note_title_input_label)
+        ) {
+            if (it.all { x -> x.isLetter() || x.isWhitespace() }) { title = it }
+        }
+        NoteTextInput(
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 0.dp),
+            text = noteBody,
+            label = stringResource(id = R.string.note_body_input_label)
+        ) {
+            if (it.all { x -> x.isLetter() || x.isWhitespace() }) { noteBody = it }
         }
         Spacer(modifier = Modifier.height(20.dp))
+        NoteButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 0.dp),
+            text = stringResource(id = R.string.note_save_button)
+        ) {
+            if (!validNote(title, noteBody)) return@NoteButton
+            showSheet = true
+        }
+        Spacer(modifier = Modifier.height(24.dp))
         LazyColumn {
             items(notes) {
                 NoteRow(
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()
-                        .padding(10.dp),
+                        .padding(start = 16.dp, top = 0.dp, end = 16.dp, bottom = 16.dp),
                     note = it
                 ) { note ->
                     onRemoveNote(note)
