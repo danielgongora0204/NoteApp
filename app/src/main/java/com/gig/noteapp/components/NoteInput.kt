@@ -21,6 +21,7 @@ fun NoteTextInput(
     text: String = String(),
     label: String = String(),
     maxLine: Int = 1,
+    imeAction: ImeAction = ImeAction.Done,
     onImeAction: () -> Unit = {},
     onValueChange: (String) -> Unit = {}
 ) {
@@ -37,7 +38,7 @@ fun NoteTextInput(
         label = {
             Text(text = label)
         },
-        keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
+        keyboardOptions = KeyboardOptions.Default.copy(imeAction = imeAction),
         keyboardActions = KeyboardActions(
             onDone = {
                 onImeAction()

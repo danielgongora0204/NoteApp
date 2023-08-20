@@ -81,3 +81,12 @@ fun DefaultPreview() {
         NoteNavigation(modifier, navController, appBarState)
     }
 }
+
+/*TODO LIST:
+   A few of the pending things to be done are:
+    - Ktlint Implementation
+    - Konform Implementation
+    - Lottie Implementation
+    - MockK Implementation
+    - Firebase Implementation (crashlytics, analytics, gcm, login, etc)
+   */

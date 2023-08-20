@@ -6,7 +6,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -34,11 +33,27 @@ fun NoteNavigation(modifier: Modifier = Modifier, navController: NavHostControll
 @Composable
 fun ToNoteFragment(modifier: Modifier = Modifier, navController: NavHostController? = null, onComposing: (AppBarState) -> Unit = {}) {
     val noteViewModel: NoteViewModel = hiltViewModel()
-    val noteList =  noteViewModel.notes.collectAsState().value
+    val noteList = noteViewModel.notes.collectAsState().value
+    val noteTitle = noteViewModel.title.collectAsState().value
+    val noteBody = noteViewModel.body.collectAsState().value
     NoteFragment(
         modifier = modifier,
         navController = navController,
         notes = noteList,
+        title = noteTitle,
+        body = noteBody,
+        validateTitleNote = { title, onError, onSuccess ->
+            noteViewModel.validateTitleNote(title, onError, onSuccess)
+        },
+        validateBodyNote = { body, onError, onSuccess ->
+            noteViewModel.validateBodyNote(body, onError, onSuccess)
+        },
+        setTitleNote = {
+            noteViewModel.setTitleNote(it)
+        },
+        setBodyNote = {
+            noteViewModel.setBodyNote(it)
+        },
         onAddNote = {
             noteViewModel.addNote(it)
         },
