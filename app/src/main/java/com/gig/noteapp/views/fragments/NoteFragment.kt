@@ -49,16 +49,19 @@ fun NoteFragment(
     notes: List<Note> = emptyList(),
     title: String? = null,
     body: String? = null,
+    noteToBeEdited: Note? = null,
     validateTitleNote: (String, () -> Unit, () -> Unit) -> Unit = { _, _ ,_ -> },
     validateBodyNote: (String, () -> Unit, () -> Unit) -> Unit = { _,_,_ -> },
     setTitleNote: (String) -> Unit = {},
     setBodyNote: (String) -> Unit = {},
+    setEditedNote: (Note?) -> Unit = {},
     onAddNote: (Note) -> Unit = {},
     onRemoveNote: (Note) -> Unit = {},
     onComposing: (AppBarState) -> Unit = {}
 ) {
     val context = LocalContext.current
-    var showSheet by rememberSaveable { mutableStateOf(false) }
+    var showSheetSave by rememberSaveable { mutableStateOf(false) }
+    var showSheetDelete by rememberSaveable { mutableStateOf(false) }
     var enabledSave by rememberSaveable { mutableStateOf(false) }
     onComposing(
         appBarState(
@@ -74,7 +77,7 @@ fun NoteFragment(
             }
         )
     )
-    if (showSheet) {
+    if (showSheetSave) {
         var loadingNoteSave by remember { mutableStateOf(false) }
         NoteConfirmationBottomSheet(
             modifier = Modifier,
@@ -84,7 +87,7 @@ fun NoteFragment(
             confirmText = stringResource(id = R.string.ok_button),
             loadingConfirm = loadingNoteSave,
             setLoadingConfirm = { result -> loadingNoteSave = result },
-            setShow = { result -> showSheet = result }
+            setShow = { result -> showSheetSave = result }
         ) {
             onAddNote(
                 Note(
@@ -100,6 +103,40 @@ fun NoteFragment(
                 context.resources.getString(R.string.note_save_confirm_success_message),
                 Toast.LENGTH_SHORT
             ).show()
+            true
+        }
+    }
+    if(showSheetDelete) {
+        var loadingNoteDelete by remember { mutableStateOf(false) }
+        NoteConfirmationBottomSheet(
+            modifier = Modifier,
+            title = stringResource(id = R.string.note_delete_confirm_title),
+            message = stringResource(id = R.string.note_delete_confirm_message),
+            cancelText = stringResource(id = R.string.cancel_button),
+            confirmText = stringResource(id = R.string.ok_button),
+            loadingConfirm = loadingNoteDelete,
+            setLoadingConfirm = { result -> loadingNoteDelete = result },
+            setShow = { result -> showSheetDelete = result },
+            onCancel = {
+                setEditedNote(null)
+                true
+            }
+        ) {
+            noteToBeEdited?.let {
+                onRemoveNote(it)
+                setEditedNote(null)
+                Toast.makeText(
+                    context,
+                    context.resources.getString(R.string.note_delete_confirm_success_message),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } ?: run {
+                Toast.makeText(
+                    context,
+                    context.resources.getString(R.string.note_delete_confirm_failed_message),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
             true
         }
     }
@@ -143,7 +180,7 @@ fun NoteFragment(
         ) {
             /*TODO: This logic has to be removed from here and assigned to the viewModel*/
             if (!validNote(title.default(""), body.default(""))) return@NoteButton
-            showSheet = true
+            showSheetSave = true
         }
         Spacer(modifier = Modifier.height(24.dp))
         LazyColumn {
@@ -155,7 +192,8 @@ fun NoteFragment(
                         .padding(start = 16.dp, top = 0.dp, end = 16.dp, bottom = 16.dp),
                     note = it
                 ) { note ->
-                    onRemoveNote(note)
+                    setEditedNote(note)
+                    showSheetDelete = true
                 }
             }
         }

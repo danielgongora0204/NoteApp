@@ -36,12 +36,14 @@ fun ToNoteFragment(modifier: Modifier = Modifier, navController: NavHostControll
     val noteList = noteViewModel.notes.collectAsState().value
     val noteTitle = noteViewModel.title.collectAsState().value
     val noteBody = noteViewModel.body.collectAsState().value
+    val noteToBeEdited = noteViewModel.noteToBeEdited.collectAsState().value
     NoteFragment(
         modifier = modifier,
         navController = navController,
         notes = noteList,
         title = noteTitle,
         body = noteBody,
+        noteToBeEdited = noteToBeEdited,
         validateTitleNote = { title, onError, onSuccess ->
             noteViewModel.validateTitleNote(title, onError, onSuccess)
         },
@@ -53,6 +55,9 @@ fun ToNoteFragment(modifier: Modifier = Modifier, navController: NavHostControll
         },
         setBodyNote = {
             noteViewModel.setBodyNote(it)
+        },
+        setEditedNote = {
+            noteViewModel.setToBeEditedNote(it)
         },
         onAddNote = {
             noteViewModel.addNote(it)

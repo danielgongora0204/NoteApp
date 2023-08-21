@@ -77,13 +77,13 @@ fun NoteConfirmationBottomSheet(
                 if(!loadingConfirm.default(false)) {
                     setLoadingConfirm(true)
                     scope.launch {
-                        val success = onConfirm()
-                        if (success) {
+                        val shouldCloseWhenFinished = onConfirm()
+                        if (shouldCloseWhenFinished) {
                             modalBottomSheetState.hide()
                         } else {
                             setLoadingConfirm(false)
                         }
-                        setShow(!success)
+                        setShow(!shouldCloseWhenFinished)
                     }
                 }
             }
@@ -97,13 +97,13 @@ fun NoteConfirmationBottomSheet(
                 if(!loadingCancel.default(false)) {
                     setLoadingCancel(true)
                     scope.launch {
-                        val success = onCancel()
-                        if(success) {
+                        val shouldCloseWhenFinished = onCancel()
+                        if(shouldCloseWhenFinished) {
                             modalBottomSheetState.hide()
                         } else {
                             setLoadingCancel(false)
                         }
-                        setShow(!success)
+                        setShow(!shouldCloseWhenFinished)
                     }
                 }
             }

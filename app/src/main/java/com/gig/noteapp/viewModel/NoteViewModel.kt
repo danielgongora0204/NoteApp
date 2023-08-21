@@ -26,6 +26,9 @@ class NoteViewModel @Inject constructor(
     private var _body = MutableStateFlow(String())
     val body by lazy { _body.asStateFlow() }
 
+    private var _noteToBeEdited = MutableStateFlow<Note?>(null)
+    val noteToBeEdited by lazy { _noteToBeEdited.asStateFlow() }
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getNotes().distinctUntilChanged().collect{
@@ -52,6 +55,10 @@ class NoteViewModel @Inject constructor(
 
     fun setBodyNote(body: String) = viewModelScope.launch(Dispatchers.IO) {
         _body.value = body
+    }
+
+    fun setToBeEditedNote(editedNote: Note?) = viewModelScope.launch(Dispatchers.IO) {
+        _noteToBeEdited.value = editedNote
     }
 
     fun validateTitleNote(title: String, onError:() -> Unit = {}, onSuccess: () -> Unit = {}) {
