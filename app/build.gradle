@@ -25,8 +25,13 @@ android {
 
     buildTypes {
         release {
+            debuggable false
             minifyEnabled false
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
         }
     }
     compileOptions {
@@ -72,6 +77,7 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
     implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation_version"
+
     //Room Database
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"

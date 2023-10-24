@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "run gradle",
+            "label": "run_gradle",
             "type": "shell",
             "command": "${workspaceFolder}/gradlew",
             "args": [
@@ -21,6 +21,52 @@
                 "kind": "build",
                 "isDefault": true
             }
-        }
+        },
+        {
+            "label": "run_devices",
+            "type": "shell",
+            "command": "adb",
+            "args": ["devices"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "showReuseMessage": false,
+                "clear": true
+            }
+        },
+        {
+            "label": "run_logcat",
+            "type": "shell",
+            "command": "adb",
+            "args": ["logcat", "--pid=31957"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "showReuseMessage": false,
+                "clear": true
+            }
+        },
+        {
+            "label": "run_builder",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "run_devices",
+                "run_gradle"
+            ]
+        }        
     ]
 }

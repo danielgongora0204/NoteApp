@@ -64,7 +64,7 @@ fun App(content: @Composable (modifier: Modifier, navController: NavHostControll
             }
         ) {
             Surface(modifier = Modifier.fillMaxSize()) {
-                content(modifier = Modifier.padding(top = it.calculateTopPadding()), navController = navController) {
+                content(Modifier.padding(top = it.calculateTopPadding()), navController) {
                     appBarState = it
                 }
             }
